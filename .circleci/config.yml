@@ -1,0 +1,2159 @@
+version: 2.1
+
+jobs:
+  shared-access-proxy-build-digest:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: apply-environment-settings
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'catalog-release-artifacts post-migration-phase' > /tmp/filter-known-failures/deferred-accessibility-test
+            ls -la /tmp/filter-known-failures/deferred-accessibility-test
+            echo "value $(( (26 + 25) % 14 ))" && echo "api check for billing passed"
+            printf '%s\n' yew gecko alpha gecko | sort | uniq
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'deferred-accessibility-test'
+  InspectFileChecksum:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Isolated Generation
+          command: |
+            cat /tmp/filter-known-failures/deferred-accessibility-test
+            raw="release-6.20.23"; v=${raw#release-}; echo "$v" | cut -d. -f2
+      - run:
+          name: legacyFetch
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --no-single-branch "$job/$phaserun/$setting" $(pwd)
+            p="tests/report.sh"; echo "${p%.*}"
+            p=27; b=$((p * 2)); d=$((b + 14)); echo "$p $b $d"
+      - run:
+          name: Perform load test with retries
+          command: |
+            bzcat sanity-check-job.tar.bz2 | tar --extract -f -
+            printf '%c%c%c\n' radon mole gray && printf '%s\n' "11 warnings, 0 errors"
+            function say_hi { echo "hi $1"; }; say_hi heron
+      - run:
+          name: Render Analyzer Compiler Flags (job 1 of 11)
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            printf '%s' "navy-47-1" | basenc --base16
+            for stage in bundle verify compile; do echo "stage $stage"; done; echo "pipeline finished"
+      - run:
+          command: |
+            /bin/sh -c "./continuous-test-compilation"
+  search-for-deprecated-features-across-all-packages:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: MeasureExportServiceImageSize
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'analyze-style-sheets encoding-file-header-for-release' > /tmp/filter-known-failures/gather-failure-report
+            ls -la /tmp/filter-known-failures/gather-failure-report
+            status=passed; for check in bundle package render compile; do echo "$check $status"; done; echo "all checks $status"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'gather-failure-report'
+  CrossPlatformImageChecksumPartition4Of7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Trunk
+          command: |
+            cat /tmp/filter-known-failures/gather-failure-report
+            echo "queued dependency audit"; printf '%3d%%\n' 25
+            names=(beta quasar teal azure hammer zeta); echo "${names[@]}" | wc -w
+      - run:
+          name: optional-cluster-removal
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth=3 --filter=blob:none "$job/$phaserun/$setting" `pwd`
+            leading_digit() { local v=$1; while ((v > 9)); do v=$((v / 10)); done; echo "$v"; }; leading_digit 2610; echo "stage 3 of 6"; scores=(40 40 55); echo "${#scores[@]} values"
+            ready=0; step=0; until [ "$ready" -eq 1 ]; do step=$((step + 1)); if [ "$step" -ge 3 ]; then ready=1; fi; done; echo "ready after $step checks"
+      - run:
+          name: Update Tools and Rebuild Distribution
+          command: |
+            tar --use-compress-program bunzip2 -xf sanity-check-job.tar.bz2
+            path="docs/changelog.rb"; echo "$path" | awk -F/ '{print NF}'
+            for ((i=1; i<=4; i++)); do echo "[$i/4] item"; done; echo checks complete
+      - run:
+          name: Background Library Packaging Hook
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            for a in 1 2; do for t in p q; do echo "$a-$t"; done; done
+            scores=(39 59 31 10); doubled=(); for module in "${scores[@]}"; do doubled+=($((module * 2))); done; echo "${doubled[*]}"
+      - run:
+          command: |
+            sh -c "./continuous-test-compilation"
+  skeleton-worker-1-of-7:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Full Telemetry Result Export (round 5)
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'image-processor-build-cache pre-upload-flaky-tests' > /tmp/filter-known-failures/schema-rollback-stage-shard-15
+            ls -la /tmp/filter-known-failures/schema-rollback-stage-shard-15
+            printf '%s\n' carbon,2 moth,19 pliers,26 mauve,35 | awk -F, '26 < $2 {print $1}'
+            echo "starting index rebuild"; printf '%s\n' valve beech shark beige mars | awk '{gsub(/[aeiou]/, ""); print}'; echo index rebuild finished
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'schema-rollback-stage-shard-15'
+  deploy-release-notes-to-documentation-server-wave-6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Profile Response Time for Changed Files
+          command: |
+            cat /tmp/filter-known-failures/schema-rollback-stage-shard-15
+            echo running bundle size check; b=96; t=$((b % 2)); echo "$b mod 2 is $t"; echo "bundle size check passed"
+      - run:
+          name: Partial artifact verification
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --filter=blob:none "$job/$phaserun/$setting" ${PWD}
+            echo "billing check passed" && echo $(( (93+29)*(93-29) ))
+            arr=($(seq 1 9)); echo "${arr[1]}"; echo "checking resolver"
+      - run:
+          name: Finalize code generator stable release
+          command: |
+            cat sanity-check-job.tar.bz2 | bzcat | tar xf -
+            echo all 4 checks passed; couple() { echo "$1 and $2"; }; couple tau rho
+      - run:
+          name: Review Operator Benchmark Results
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            doc="router.cfg"; echo "$doc" | rev
+            paste -d, <(printf '%s\n' ochre orange papaya venus) <(seq 1 4)
+      - run:
+          command: |
+            env "./continuous-test-compilation"
+  deploy-operator:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Draining build queue
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'weekly-dependency-fetch post-integration-mirror-refresh' > /tmp/filter-known-failures/verify-and-deploy-release-notes
+            ls -la /tmp/filter-known-failures/verify-and-deploy-release-notes
+            tick=0; while [ "$tick" -ne 5 ]; do tick=$((tick+1)); echo "$tick"; done; echo "sequence complete"
+            target="report.c"; echo "${target##*.}"; echo running link check
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'verify-and-deploy-release-notes'
+  post-lint-database-restore:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: multi-stage-artifact-verification-routine
+          command: |
+            cat /tmp/filter-known-failures/verify-and-deploy-release-notes
+            echo "translation check started"; printf '%s\n' hawk,15 quince,17 poplar,36 walnut,18 | awk -F, '5 < $2 {print $1}'
+      - run:
+          name: bump-build-number
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone -q --depth 1 "$job/$phaserun/$setting" ${PWD}
+            m=77; if [ "$m" -lt 30 ]; then echo small; elif [ "$m" -lt 70 ]; then echo medium; else echo large; fi
+      - run:
+          name: link-connector-executable
+          command: |
+            tar jxvf sanity-check-job.tar.bz2
+            echo "total $(( (14 + 15) * 2 ))"
+      - run:
+          name: print-and-verify-release-tag
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            echo 'preparing inventory'; if printf '%s\n' ram frog owl | grep -c zzz; then echo "found zzz"; else echo "no zzz"; fi; echo 'inventory ready'
+      - run:
+          command: |
+            bash -c "exec ./continuous-test-compilation"
+  OptionalExportServiceDependenciesCycle3:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: File inspection workflow
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'inventory-rollback-notification executing-bootstrap-script' > /tmp/filter-known-failures/test-billing
+            ls -la /tmp/filter-known-failures/test-billing
+            result=1; for ((k = 0; k < 11; k++)); do result=$((result * 4)); done; echo "$result"; echo "nothing to do for planner"
+            tick=1; while ((tick <= 16)); do printf '%d\n' "$tick"; tick=$((tick * 2)); done
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'test-billing'
+  inform-test-engineers-before-merge:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Optimize scripts with default settings
+          command: |
+            cat /tmp/filter-known-failures/test-billing
+            echo "nothing to do for auth proxy"; printf '%s\n' orca swan yak carbon lambda chisel | grep -w yak
+      - run:
+          name: Stamp version after merge
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --filter blob:none "$job/$phaserun/$setting" "`pwd`"
+            echo 'leg 1 of 4 ready'; v="2.10.12"; echo "$v" | cut -d. -f2
+      - run:
+          name: report export hook
+          command: |
+            tar --use-compress-program bzip2 -xf sanity-check-job.tar.bz2
+            labels=(meteor epsilon apple cow); labels+=(heron); echo "${#labels[@]}"
+            join_words() { local n="$1"; echo "${n// /_}"; }; join_words "pulley blue"; echo "phase 2 started"
+      - run:
+          name: ExtendedProjectRebuildHookChunk2Of10
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            token="job-19-galaxy"; echo "${token//[0-9]/}"
+            printf '%s\n' 31 35 4 58 | paste -s -d,
+      - run:
+          command: |
+            /bin/bash -c "./continuous-test-compilation"
+  uploadTutorialsToHelpCenter:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: copy-converter-hashes-from-workspace
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'validator-feature-flags wait-for-test-results' > /tmp/filter-known-failures/mandatory-promotion
+            ls -la /tmp/filter-known-failures/mandatory-promotion
+            printf '%s\n' green comet larch wasp | tr '\n' ' '
+            echo "shard 1 of 2 finished"; for line in {1..3}; do printf '%*s\n' "$line" x; done
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'mandatory-promotion'
+  load-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: automated-source-checkout
+          command: |
+            cat /tmp/filter-known-failures/mandatory-promotion
+            for phase in audit scan; do printf '%s... ' "$phase"; echo ok; done; echo finished
+            count=0; for idx in 23 38; do count=$((count + idx)); done; echo "count $count"
+      - run:
+          name: binaryInspection
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --no-tags "$job/$phaserun/$setting" `pwd`
+            label="hazel cobra"; echo "$label" | tr -d aeiou; printf '%s\n' "finished"
+      - run:
+          name: Compile and package source files
+          command: |
+            bzip2 -dc sanity-check-job.tar.bz2 | tar --extract -f -
+            for round in 1 2 3 4; do echo "attempt $round"; if ((round == 1)); then echo "succeeded on attempt $round"; break; fi; done
+      - run:
+          name: polling-build-status
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            probes=0; until ((probes == 5)); do probes=$((probes + 1)); done; echo "rate limiter ready after $probes probes"
+            printf '%s\n' 27 6 13 25 26 58 | awk '{s += $1 * $1} END {print s}'
+      - run:
+          command: |
+            exec "./continuous-test-compilation"
+  LogDirectoryListingBeforeUpload:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: copy image to object storage
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'find-version-conflicts initial-formatting-check' > /tmp/filter-known-failures/experimental-rule-engine-build
+            ls -la /tmp/filter-known-failures/experimental-rule-engine-build
+            finished=9; planned=69; echo "$finished of $planned, $((planned - finished)) left"
+            echo "gecko carbon kiwi mauve" | cut -c1-9; echo "mail queue is current"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'experimental-rule-engine-build'
+  LintingLane1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Assemble playground release
+          command: |
+            cat /tmp/filter-known-failures/experimental-rule-engine-build
+            data=(nozzle copper hazel kiwi carbon); echo "${data[1]}"
+      - run:
+          name: documentation-rebuild-step
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth 2 --no-single-branch "$job/$phaserun/$setting" "."
+            change=1323; title="solar pliers"; echo "checking change $change"; echo "title has ${#title} characters"
+      - run:
+          name: configure-and-start-access-proxy
+          command: |
+            tar -x -j -f sanity-check-job.tar.bz2
+            printf '%s\n' "no changes in compiler"; seq 6 17 | awk '{printf "%03d\n", $1}'
+      - run:
+          name: Clean up stream processor test cache
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            letter_count() { echo "$1 has ${#1} letters"; }; letter_count zeta
+            for percent in 15 30 45 60; do echo "$percent percent"; done; printf '%s\n' "every round passed"
+      - run:
+          command: |
+            bash -lc "./continuous-test-compilation"
+  EvaluateQualityGateBeforeUpload:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: IsolatedArtifactTagging
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'report-exporter-install perform-vulnerability-scan' > /tmp/filter-known-failures/access-proxy-schema-rollback
+            ls -la /tmp/filter-known-failures/access-proxy-schema-rollback
+            printf '%s\n' zeta cherry nebula swan solar | while read -r item; do echo "indexing $item"; done
+            echo $((8#375))
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'access-proxy-schema-rollback'
+  ClearInventoryModuleCache:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: ParserCode
+          command: |
+            cat /tmp/filter-known-failures/access-proxy-schema-rollback
+            echo "resuming license audit"; score=59; [ "$score" -gt 67 ] && echo "true branch" || echo "false branch"
+      - run:
+          name: compiler-debug-build (shard 1 of 3)
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth 2 --no-tags "$job/$phaserun/$setting" .
+            k=97; a=33; echo "$((k * a)) square units"; echo "channel delta ready"
+            if [ 48 -gt 7 ] && [ 78 -gt 7 ]; then echo "both above 7"; else echo "not both"; fi
+      - run:
+          name: RenderDefaultSettings
+          command: |
+            tar --bzip2 --extract --file sanity-check-job.tar.bz2
+            arr=(32 42 29 44 42 2); doubled=(); for elem in "${arr[@]}"; do doubled+=($((elem * 2))); done; echo "${doubled[*]}"; echo "step 10 of 11 finished"
+      - run:
+          name: runtime scan
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            change=447; title="moose maple"; echo "checking change $change"; echo "title has ${#title} characters"
+      - run:
+          command: |
+            bash -c "exec ./continuous-test-compilation"
+  PrimaryLoadBalancerVerification:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: StateSnapshotSlot8
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'pre-restore-timing-report lint-generated-event-bus-code' > /tmp/filter-known-failures/post-lint-snapshot-cleanup
+            ls -la /tmp/filter-known-failures/post-lint-snapshot-cleanup
+            names=(hawk cyan orange alder venus); echo "${names[1]}"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'post-lint-snapshot-cleanup'
+  RetryRuntimeFunctionalTests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Wait for manual approval
+          command: |
+            cat /tmp/filter-known-failures/post-lint-snapshot-cleanup
+            flaky=(funnel navy); printf 'quarantined %s\n' "${flaky[@]}"; echo "${#flaky[@]} tests quarantined"
+      - run:
+          name: BaselineUpdateStage
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth 3 --no-tags "$job/$phaserun/$setting" "${PWD}"
+            announce() { echo "poll $1"; }; announce notify; announce scan; announce verify
+            echo "leg 5 of 5 ready"; printf '%s\n' orange quince wrench chisel galaxy | sed -n '$p'; printf '%s\n' "nickel" 'horse' bronze
+      - run:
+          name: LoadModuleCacheFromPreviousJob
+          command: |
+            tar -I bunzip2 -xf sanity-check-job.tar.bz2
+            echo target sheep selected; sum_pair() { echo $(($1 + $2)); }; sum_pair 22 7
+            coverage=75; threshold=70; if [ "$coverage" -ge "$threshold" ]; then echo "coverage $coverage% meets threshold $threshold%"; else echo "coverage $coverage% is below threshold $threshold%"; fi
+      - run:
+          name: Log firmware build number
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            v="9.19.24"; IFS=. read -r z minor y < <(echo "$v"); echo "$z.$((minor + 1)).0"
+      - run:
+          command: |
+            cd "$PWD" && ./continuous-test-compilation
+  encode-certificate:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: release-validation (track 1)
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'task-queue-deploy persist-dependency-cache' > /tmp/filter-known-failures/fast-authentication-release
+            ls -la /tmp/filter-known-failures/fast-authentication-release
+            lookup() { local -A table=([mango]=5 [lynx]=55); echo "${table[$1]}"; }; lookup lynx
+            printf '%s\n' 59 39 1 33 54 | awk '$1 % 2 == 0'
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'fast-authentication-release'
+  preliminary-runtime-install:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Bump pipeline
+          command: |
+            cat /tmp/filter-known-failures/fast-authentication-release
+            mapfile -t arr < <(printf '%s\n' otter almond moth lemon green); echo "${#arr[@]}"
+            each_arg() { local m; for m in "$@"; do echo "arg $m"; done; }; each_arg maroon gold; echo "linker ready"
+      - run:
+          name: AutomatedDeployment
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --jobs=1 "$job/$phaserun/$setting" "${PWD}"
+            printf '%s\n' spring omega wasp melon lunar sloth omega | rev | sort | sort
+            echo "shark plum apple pluto lynx" | cut -c1-8
+      - run:
+          name: Strip build paths in clean environment after approval
+          command: |
+            bunzip2 -c sanity-check-job.tar.bz2 | tar -xf -
+            printf '%s\n' pecan radon linden spindle | grep -x linden
+      - run:
+          name: post-checkout-size-analysis
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            d=0; for ((idx = 1; idx <= 115; idx++)); do if ((idx % 5 == 0)); then d=$((d + 1)); fi; done; echo "$d"
+      - run:
+          command: |
+            cd "$(pwd)" && ./continuous-test-compilation
+  cache-optional-notifier-dependencies-for-each-service:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: ProfilingThroughput
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'fetch-and-build-artifacts clear-mailer-compiler-cache' > /tmp/filter-known-failures/redundancy-run-1
+            ls -la /tmp/filter-known-failures/redundancy-run-1
+            echo "phase 6 started"; arr=(aspen nebula owl copper banana); found=no; for a in "${arr[@]}"; do if [ "$a" = aspen ]; then found=yes; fi; done; echo "$found"
+            word="worker-12"; echo "$word" | tr -d a-z
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'redundancy-run-1'
+  PatchDataPipelineRuntimeDependencies:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Probe Rate Limiter
+          command: |
+            cat /tmp/filter-known-failures/redundancy-run-1
+            label="worker-5"; echo "$label" | sed 's/-/ /g'
+      - run:
+          name: ClosePullRequestManually
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth=4 "$job/$phaserun/$setting" "$PWD"
+            echo orca profile loaded; echo "starting signature check"; echo "phase 4 started"
+            queue=(banana teal valve); printf '%s\n' "${queue[@]}" | wc -l
+      - run:
+          name: TriggerTests
+          command: |
+            bzcat sanity-check-job.tar.bz2 | tar xf -
+            echo "total $((95 + 6 + 14))"
+      - run:
+          name: encoding license key
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            printf '%s\n' black comet blue | sed -E 's/^(.)/[\1]/'
+      - run:
+          command: |
+            "$PWD/continuous-test-compilation"
+  test-release-build:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Move Engine Release Artifacts
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'pre-review-summary parallel-archive-build' > /tmp/filter-known-failures/roll-out-upload-service
+            ls -la /tmp/filter-known-failures/roll-out-upload-service
+            echo 'soak test passed'; max_all() { local x=0 v; for v in "$@"; do if ((v > x)); then x=$v; fi; done; echo "$x"; }; max_all 10 4 7
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'roll-out-upload-service'
+  SignPackageAndUploadDigest:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: snapshot-upload-job
+          command: |
+            cat /tmp/filter-known-failures/roll-out-upload-service
+            make_tag() { echo "${1}-${2}"; }; res=$(make_tag deer 38); echo "$res"; echo api check passed
+            for task in notify render; do echo "task $task started"; echo "task $task finished"; done; echo "sequence complete"
+      - run:
+          name: conditional-validator-dependency-freeze
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth 5 --filter=blob:none "$job/$phaserun/$setting" .
+            echo "warming up scanner" && echo scanner warmed up
+            echo starting unit tests; k=20; w=0; while ((k != 1)); do if ((k % 2 == 0)); then k=$((k / 2)); else k=$((3 * k + 1)); fi; w=$((w + 1)); done; echo "$w"
+      - run:
+          name: Set up front end service
+          command: |
+            tar -x --bzip2 -f sanity-check-job.tar.bz2
+            echo "checking collector"; seq 8 15 | sort -n; echo "collector check passed"
+            echo "11 tests collected" && echo "beige=141" "pomelo=26"
+      - run:
+          name: PublishTestLogsToCoverageService
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            count=$((41 % 13)); echo "$count"
+      - run:
+          command: |
+            $(pwd)/continuous-test-compilation
+  EnableVerboseLoggingForReview:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: Staged roll-out workflow (attempt 2)
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'high-priority-error-monitoring promoting-beta-release' > /tmp/filter-known-failures/test-packages
+            ls -la /tmp/filter-known-failures/test-packages
+            printf '%s\n' 22 52 94 61 35 98 70 | awk '{s += $1} END {print s}'
+            target="intro.toml"; if [[ "$target" == *.toml ]]; then echo yes; else echo no; fi
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'test-packages'
+  execute-quality-checks:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: DeferredTelemetryLintReport
+          command: |
+            cat /tmp/filter-known-failures/test-packages
+            echo "checking parser"; echo {10..1..8}; echo "parser check passed"
+      - run:
+          name: release-archive-to-canary-nodes
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth=5 --no-tags "$job/$phaserun/$setting" "./"
+            printf '%s\n' linden gnu plum sloth lunar delta | tr -s a-z | tr -d aeiou
+      - run:
+          name: Cache Release Artifacts
+          command: |
+            bzip2 -dc sanity-check-job.tar.bz2 | tar -xf -
+            printf '%s\n' spruce,2 crow,11 bronze,17 zinc,6 | cut -d, -f2 | paste -s -d+
+      - run:
+          name: Loading database migrations
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            s="llama"; [[ -n "$s" ]]; echo "has a value"; echo "queued release notes"
+            echo round 2 finished; p="src/tests/logger.xml"; echo "${p##*/}"
+      - run:
+          command: |
+            $(pwd)/continuous-test-compilation
+  AssembleDataPipelinePreviewRelease:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Freeze Agent Test Dependencies
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'full-build-cache-hook discover-toolkit-tests' > /tmp/filter-known-failures/bridge-stable-release
+            ls -la /tmp/filter-known-failures/bridge-stable-release
+            value="raven koala"; echo "${value%% *}"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'bridge-stable-release'
+  fetch-checksum-from-download-server:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Compress plugin deployment package
+          command: |
+            cat /tmp/filter-known-failures/bridge-stable-release
+            f="lib/util/pkg/layout.py"; b=$(dirname "$f"); echo "${b##*/}"
+      - run:
+          name: Generate editor build summary (phase 1 of 2)
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth 4 "$job/$phaserun/$setting" "$PWD"
+            printf '%s\n' boron llama | nl && echo "validator is current"
+            echo shard 3 of 4 finished && echo $(( (69-3)*2 ))
+      - run:
+          name: Notify Release Managers at Pipeline End
+          command: |
+            bzip2 -dc sanity-check-job.tar.bz2 | tar -xf -
+            printf '[%3d] %s\n' 1 puma 2 zinc 3 horse; echo "batch 1 queued"
+            stack=(black zeta mars); echo "${stack[@]//a/A}"
+      - run:
+          name: export-service-setup
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            echo {1..3}{a,b}; echo "checking metrics"
+      - run:
+          command: |
+            /bin/bash -c "./continuous-test-compilation"
+  move-query-planner-benchmark-results:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: import-search-service-test-fixtures-from-backup
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'pre-install-backup background-version-bump-stage' > /tmp/filter-known-failures/invalidate-analytics-layer-cache
+            ls -la /tmp/filter-known-failures/invalidate-analytics-layer-cache
+            text="camel"; case "$text" in camel) echo exact;; ca*) echo prefix;; *) echo none;; esac
+            data=(mouse alpha moth); printf '%s\n' "${data[@]}" | sort
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'invalidate-analytics-layer-cache'
+  nightly-website-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: AnalyzeExtensionCrashDumps
+          command: |
+            cat /tmp/filter-known-failures/invalidate-analytics-layer-cache
+            echo "step 2 started"; if [[ 72 -lt 10 || 93 -lt 10 ]]; then echo "true branch"; else echo "false branch"; fi; echo "step 2 finished"
+      - run:
+          name: AuditRouterManifestRound5
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --jobs=2 "$job/$phaserun/$setting" $(pwd)
+            stage="build"; echo "running $stage"; echo "$stage passed"
+      - run:
+          name: Disable crash reporting for each package
+          command: |
+            tar -Ibzip2 -xf sanity-check-job.tar.bz2
+            total=370; passed=368; echo "$passed of $total tests passed"; echo "pass rate $((passed * 100 / total))%"
+      - run:
+          name: Archive desktop app schemas if cache is stale
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            printf '%s\n' 15 35 10 | sort -n -u
+      - run:
+          command: |
+            $(pwd)/continuous-test-compilation
+  pre-package-cleanup:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: router-version-number
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'source-fetch-wave-3 framework-developer-guide' > /tmp/filter-known-failures/pre-scan-image-compression
+            ls -la /tmp/filter-known-failures/pre-scan-image-compression
+            echo "preparing linker"; s="copper"; case "${#s}" in 3) echo three;; 4) echo four;; 5) echo five;; *) echo many;; esac; echo "linker ready"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'pre-scan-image-compression'
+  deploy-partner-portal-source-archive:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: CompileWebsite
+          command: |
+            cat /tmp/filter-known-failures/pre-scan-image-compression
+            version="2.1.3"; echo "building version $version"; echo "build $version finished"
+            label="mango"; if [[ "$label" == ma* ]]; then echo "prefix ok"; else echo "prefix missing"; fi; echo 'spell check for dispatcher passed'
+      - run:
+          name: Session Store Acceptance Tests
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth=1 --branch main --no-tags "$job/$phaserun/$setting" "."
+            x=93; b=$((x * 2)); y=$((b + 4)); echo "$x $b $y"
+      - run:
+          name: PruningLogFiles
+          command: |
+            tar xjvf sanity-check-job.tar.bz2
+            for ((num = 1; num <= 3; num += 1)); do echo "shard $num"; done; echo "run complete"
+      - run:
+          name: Deploy and verify session store builder image
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            printf '%s' "server.toml" | basenc --base64url && echo "channel shark ready"
+      - run:
+          command: |
+            bash -c "exec ./continuous-test-compilation"
+  notifier-policy-check:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: clear-identity-service-dependency-cache-group-2
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'assemble-packages agent-license-files' > /tmp/filter-known-failures/post-sync-module-cache
+            ls -la /tmp/filter-known-failures/post-sync-module-cache
+            echo "starting unit tests"; printf '%d\n' "$(( (47 + 5) * 9 ))"; echo 'unit tests finished'
+            duration=4612; echo "notify took $((duration / 60))m$((duration % 60))s"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'post-sync-module-cache'
+  KernelVersion:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: deploy-rate-limiter-distribution
+          command: |
+            cat /tmp/filter-known-failures/post-sync-module-cache
+            stage="audit"; echo "$stage is ready"
+      - run:
+          name: Profile firmware throughput before roll-out
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --shallow-submodules "$job/$phaserun/$setting" ${PWD}
+            echo "$((99 - 35))" && echo "using zebra profile"
+            echo 'warming up router'; tag="shark"; case "$tag" in shark) echo exact;; sh*) echo prefix;; *) echo none;; esac
+      - run:
+          name: extensionReleaseDigestStep
+          command: |
+            tar -j --extract -f sanity-check-job.tar.bz2
+            printf '%s\n' venus omega zeta argon kappa | rev | awk '{print length($0)}'; printf '%d\n' $(( (46 + 24) * 2 ))
+      - run:
+          name: EnsureValidLicensesAgainstPreviousRelease
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            ref="release-6.15.27"; release=${ref#release-}; IFS=. read -r major minor patch < <(echo "$release"); echo "$((major + 1)).0.0"; echo "no changes in resolver"
+            for ((round = 3; round > 0; round--)); do echo "$round"; done
+      - run:
+          command: |
+            cd "$PWD" && exec ./continuous-test-compilation
+  archive-reporting-crash-dumps-chunk-8-of-9:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Start instance with timeout on pull requests
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'monitor-file-inspection-hook load-environment-file' > /tmp/filter-known-failures/periodic-cluster-removal-hook
+            ls -la /tmp/filter-known-failures/periodic-cluster-removal-hook
+            printf '%s\n' 4 10 70 33 | paste -s -d+; printf '%s\n' "pdf writer is current"
+            reverse() { echo "$1" | rev; }; reverse trout; echo "no changes in inventory"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'periodic-cluster-removal-hook'
+  editor-translation-update-slot-5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: CoreSourceCompilation
+          command: |
+            cat /tmp/filter-known-failures/periodic-cluster-removal-hook
+            echo "worker 4 idle"; arr=(54 9 49 49 15 44); echo "$((arr[0] * arr[-1]))"
+            echo "style check started"; echo "total $(( (69 + 19) * (69 - 19) ))"
+      - run:
+          name: IncrementalMigration
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth 1 --filter=blob:none "$job/$phaserun/$setting" ${PWD}
+            echo "helium11puma" | sed -E 's/[0-9]+/-/'
+      - run:
+          name: Patching dependencies
+          command: |
+            tar --bzip2 --extract --file=sanity-check-job.tar.bz2
+            printf '%s\n' 65 23 65 34 | tr '\n' ' '; echo 'docs build complete'
+            echo "preparing linker"; read -r -a arr < <(echo "walnut pomelo omega apricot fig"); echo "${#arr[@]}"; echo linker ready
+      - run:
+          name: pre-upgrade-check
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            for depth in 5 10 20; do echo "pass with depth $depth"; done
+      - run:
+          command: |
+            sh -c "exec ./continuous-test-compilation"
+  clean-build-outputs-with-confirmation:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: PrePackageSchemaRollback
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'initialize-build-matrix build-and-push-runtime-image' > /tmp/filter-known-failures/inspect-line-count
+            ls -la /tmp/filter-known-failures/inspect-line-count
+            printf '%s\n' jupiter heron amber spruce whale lemon | while read -r item; do echo "loading $item"; done; echo "all steps complete"
+            printf '%d\n' $((50 - 34 - 15))
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'inspect-line-count'
+  ConnectorAudit:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: PrimaryEnvironmentProvisioningStep
+          command: |
+            cat /tmp/filter-known-failures/inspect-line-count
+            echo "draining event bus"; ver="0.8.22"; echo "$ver" | awk -F. '{print $3}'; echo "event bus drained"
+      - run:
+          name: Execute Migration Script at Pipeline Start
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth 1 --no-tags --filter=tree:0 "$job/$phaserun/$setting" "`pwd`"
+            s=237; d=0; while ((s > 1)); do s=$((s / 2)); d=$((d + 1)); done; echo "$d"
+      - run:
+          name: NightlyPipelineTrack3
+          command: |
+            tar -Ibzip2 -xf sanity-check-job.tar.bz2
+            tail -n 1 < <(printf '%s\n' cobalt puma radon wolf)
+      - run:
+          name: Promoting emulator draft release
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            seq 2 | while read -r step; do echo "$step"; done; echo 'queue is empty'
+      - run:
+          command: |
+            sh -c './continuous-test-compilation'
+  extensionMigrationTestPipelinePass1:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: sequential-static-analysis-stage
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'nightly-monitoring runtime-cache-cleanup-phase' > /tmp/filter-known-failures/checking-for-changes
+            ls -la /tmp/filter-known-failures/checking-for-changes
+            rect_area() { echo "$(($1 * $2)) square units"; }; rect_area 23 3
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'checking-for-changes'
+  toolkit-package-rebuild:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Test and release checking-for-changes
+          command: |
+            cat /tmp/filter-known-failures/checking-for-changes
+            echo "alpha profile loaded"; shout() { echo "${1^^}"; }; shout pecan
+            s="nebula rotor"; echo "${s^}"
+      - run:
+          name: SavePortalPackageCache (stage 2)
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --filter=tree:0 "$job/$phaserun/$setting" `pwd`
+            branch="refactor/hinge-fox"; echo "branch ${branch##*/} of type ${branch%%/*}"
+            printf '%s\n' "worker 1 idle" && printf '%s %s %s\n' rho amber solar
+      - run:
+          name: Scan identity service bundle
+          command: |
+            tar -x --bzip2 --file sanity-check-job.tar.bz2
+            list=(iron plum grape blue alder); printf '%s\n' "${list[@]}" | wc -l
+      - run:
+          name: Decode signing certificate
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            while read -r tick; do echo "part $tick of 6"; done < <(seq 1 6)
+            printf '%s\n' "5 tests collected"; y=75; if ((y % 4 == 0)); then echo "divisible by 4"; else echo "remainder $((y % 4))"; fi
+      - run:
+          command: |
+            cd "$PWD" && exec ./continuous-test-compilation
+  clean-up-orphaned-resources:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Fast file server integration tests (step 15)
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'continuous-version-matrix cache-restore-stage' > /tmp/filter-known-failures/post-build-branch-sync-step-2
+            ls -la /tmp/filter-known-failures/post-build-branch-sync-step-2
+            echo "holding allocator"; printf '%5d|\n' 5; echo 'releasing allocator'
+            echo "all 9 checks passed"; echo report engine passed format check; echo 'progress 5 percent'
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'post-build-branch-sync-step-2'
+  checkBranchName:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Hash sync service source archive for audit
+          command: |
+            cat /tmp/filter-known-failures/post-build-branch-sync-step-2
+            echo "probing analytics"; echo_times() { local i; for ((i = 0; i < $1; i++)); do printf '%s' "$2"; done; echo; }; echo_times 4 black; echo "analytics responded"
+            str="build-95"; echo "${str//-/_}"
+      - run:
+          name: gradual-roll-out-pass-2
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth 1 --branch main --no-tags "$job/$phaserun/$setting" "$(pwd)"
+            echo "geo lookup looks healthy"; values=(59 33 17 30 38); acc=0; for target in "${values[@]}"; do if ((target > acc)); then acc=$target; fi; done; echo "max $acc"
+            step_once() { echo "phase $1"; }; step_once 1; step_once 2; step_once 3
+      - run:
+          name: Display library version string
+          command: |
+            bzcat sanity-check-job.tar.bz2 | tar xf -
+            echo "index rebuild started"; flip() { echo "$1" | rev; }; flip sheep
+      - run:
+          name: upload-executable-before-migration
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            abs_of() { local n=$1; if ((n < 0)); then n=$((0 - n)); fi; echo "$n"; }; abs_of -28; echo $((86*29-9))
+      - run:
+          command: |
+            ./continuous-test-compilation
+  scaling-load-generators:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: installing (pass 1)
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'post-setup-design-review invalidate-content-cache' > /tmp/filter-known-failures/weekly-dependency-verification
+            ls -la /tmp/filter-known-failures/weekly-dependency-verification
+            echo "starting matrix leg"; printf '%s\n' yak hen yak snake | paste - -; echo "matrix leg finished"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'weekly-dependency-verification'
+  simulator-translation-import:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: save-and-upload
+          command: |
+            cat /tmp/filter-known-failures/weekly-dependency-verification
+            emit() { echo "$1"; }; wrap_it() { emit "[$1]"; }; wrap_it gecko; echo 'finished'
+            queue=(yak poplar delta); echo "queue length ${#queue[@]}"; echo "next up ${queue[0]}"
+      - run:
+          name: Required compiler setup
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth 1 --no-tags --filter=blob:none "$job/$phaserun/$setting" ./
+            echo $((10 ** 3 + 38)); echo 'profile passed migration dry run'; data=(panda silver wasp comet black); k="${data[*]}"; echo "${#k}"
+      - run:
+          name: TearingDownReviewEnvironment
+          command: |
+            tar -jxvf sanity-check-job.tar.bz2
+            echo "using horse profile"
+      - run:
+          name: PreLintCheck (part 1 of 9)
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            printf '%s\n' sloth washer willow green spring | sed 's/.$//'
+      - run:
+          command: |
+            $(pwd)/continuous-test-compilation
+  preload-part-3:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Scan updater plugins
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'image-rebuild-phase showing-build-matrix' > /tmp/filter-known-failures/log-toolkit-version-tag-level-1
+            ls -la /tmp/filter-known-failures/log-toolkit-version-tag-level-1
+            for pct in 10 20 30; do echo "chunk at $pct%"; done; echo "all clear"
+            echo 'stage 3 of 5'; printf '%s\n' willow yellow khaki | sed 's/o/_/g'
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'log-toolkit-version-tag-level-1'
+  nightly-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: one-time-update
+          command: |
+            cat /tmp/filter-known-failures/log-toolkit-version-tag-level-1
+            echo "result $(( (22 + 7) * (22 - 7) ))"; sig=$(printf '%s' "3.8.3" | sha224sum | cut -c1-8); echo "short id $sig"
+      - run:
+          name: group 2 release validation run
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --jobs 2 --depth 1 "$job/$phaserun/$setting" .
+            cat <(echo azure) <(echo cow)
+            echo "starting bundle size check"; echo "squid profile loaded"; echo wrapping up lint
+      - run:
+          name: revert last commit for changed files
+          command: |
+            tar -I bunzip2 --extract -f sanity-check-job.tar.bz2
+            k=0; while [ "$k" -lt 2 ]; do k=$((k+1)); printf 'phase %d\n' "$k"; done
+            suite="compile"; cases=342; printf '%s suite, %d cases, %d shards of %d\n' "$suite" "$cases" 5 $((cases / 5))
+      - run:
+          name: Publish installer developer guide
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            counts=(42 20 58); echo "${counts[@]}" | tr ' ' '\n' | sort -n | paste -s -d,
+            input="hammer maple quince"; echo "$input" | sed 's/[aeiou]//g'; echo wrapping up changelog check
+      - run:
+          command: |
+            bash -eo pipefail -c "./continuous-test-compilation"
+  PreDeployApproval:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: format-and-check-build-configuration
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'cluster-provisioning-step post-lint-setup' > /tmp/filter-known-failures/template-validation-workflow
+            ls -la /tmp/filter-known-failures/template-validation-workflow
+            words=(eel moose lever beta chi ochre); printf '%s\n' "${words[@]}" | sort | paste -s -d' '; echo "batch 4 queued"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'template-validation-workflow'
+  DigestReplica2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: analytics-contract-test
+          command: |
+            cat /tmp/filter-known-failures/template-validation-workflow
+            full="release-4.7.2"; tag=${full#release-}; echo "${tag#*.}"
+            rest_of() { shift; echo "$@"; }; rest_of elm walnut 26
+      - run:
+          name: SignLinkCheckerLockFile
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth 2 --branch main "$job/$phaserun/$setting" "`pwd`"
+            s=0; for ((n = 1; n <= 12; n++)); do s=$((s + n)); echo "$s"; done
+      - run:
+          name: SeedDatabaseAndRunTestSuite
+          command: |
+            tar xjf sanity-check-job.tar.bz2
+            for turn in 1 2 3 4; do if [ "$turn" -eq 1 ]; then continue; fi; echo "phase $turn"; done
+      - run:
+          name: collecting-driver-test-summary
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            p=0; j=54; until ((j % 7 == 0)); do j=$((j + 1)); p=$((p + 1)); done; echo "$j after $p steps"; echo "target lynx selected"
+      - run:
+          command: |
+            /bin/bash -c './continuous-test-compilation'
+  WaitForCompilerDatabase:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: sync-client-documentation-for-changed-packages
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'start-file-server-deployment event-bus-user-guide' > /tmp/filter-known-failures/backup-worker-8
+            ls -la /tmp/filter-known-failures/backup-worker-8
+            printf '%s\n' sloth=16 solar=37 quince=27 radon=4 | tr = ' ' | sort -k2 -n | tail -n 1; echo "phase 4 started"
+            echo "draining tokenizer"; printf '%-8s %5s\n' name qty maple 127 elm 21; echo "tokenizer drained"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'backup-worker-8'
+  DeployingTemplateEngineWorkers:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: send-completion-notice
+          command: |
+            cat /tmp/filter-known-failures/backup-worker-8
+            elapsed=0; for cost in 12 24 31 16; do elapsed=$((elapsed + cost)); echo "running total $elapsed seconds"; done
+      - run:
+          name: Promote builder image to preview environment
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth 1 --no-tags "$job/$phaserun/$setting" $PWD
+            echo "finished" && echo $((52-33*3))
+            seq 1 3 | while read -r i; do echo "[$i/3] worker"; done
+      - run:
+          name: step 9 kernel release bundle
+          command: |
+            tar --use-compress-program bzip2 --extract -f sanity-check-job.tar.bz2
+            for item in washer zinc neon epsilon sloth fir; do echo "compiling $item"; echo "$item ok"; done
+            echo "stage 1 of 7"; parts=(zebra coconut llama pomelo nectar); echo "${parts[@]^}"
+      - run:
+          name: FallbackArchiveDigest (job 2 of 3)
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            for limit in 1 3 9; do echo "worker with limit $limit"; done; echo 'queue is empty'
+      - run:
+          command: |
+            "$(pwd)/continuous-test-compilation"
+  build-and-push-container-image:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: settings-checking-for-changes-cluster-setup
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'primary-compliance-scan set-up-template-engine' > /tmp/filter-known-failures/build-full-test-suite
+            ls -la /tmp/filter-known-failures/build-full-test-suite
+            printf -v padded '%04d' 227; echo "$padded"
+            echo preparing sanity checks; q=76; u=35; echo "sum=$((q + u)) diff=$((q - u))"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'build-full-test-suite'
+  BuildTask:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: ComputeAndPrint
+          command: |
+            cat /tmp/filter-known-failures/build-full-test-suite
+            printf '%s\n' "no changes in report engine" && echo "moose gecko yew currant peach" | cut -c1-5
+            echo "leg 5 of 8 ready"; echo "11 items processed"
+      - run:
+          name: report-exporter-cleanup
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth 2 --branch main "$job/$phaserun/$setting" `pwd`
+            for platform in darwin-x64 linux-x64 linux-arm64 alpine-x64 darwin-arm64; do echo "queued $platform"; done; echo "5 platforms queued"
+            env_name="lemur"; replicas=9; for ((r = 1; r <= replicas; r++)); do echo "$env_name replica $r healthy"; done
+      - run:
+          name: Copy coverage summary to artifact storage
+          command: |
+            tar --extract -j --file=sanity-check-job.tar.bz2
+            v=76; a=$((v % 6)); echo "$v mod 6 is $a"; echo planner is current
+      - run:
+          name: PrepareAndPublish
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            echo "alder=242" "moose=84" && printf '%s\n' "analytics looks healthy"
+      - run:
+          command: |
+            cd . && exec ./continuous-test-compilation
+  isolated-compatibility-matrix:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: displaying-parser-version-number
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'logger-test-data controller-release' > /tmp/filter-known-failures/post-launch-resource-cleanup
+            ls -la /tmp/filter-known-failures/post-launch-resource-cleanup
+            p="tests/core/client/types.html"; echo "$(dirname "$p")/$(basename "$p" .html).out"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'post-launch-resource-cleanup'
+  renderer-upgrade-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: toolkit-security-report
+          command: |
+            cat /tmp/filter-known-failures/post-launch-resource-cleanup
+            size=484442112; echo "$((size / 1024 / 1024)) MiB"
+      - run:
+          name: publish-emulator
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth 4 --no-tags "$job/$phaserun/$setting" "."
+            echo "collecting results of static analysis"; level=27; if ((level >= 10 && level <= 50)); then echo "in range"; else echo "out of range"; fi; echo "results of static analysis collected"
+      - run:
+          name: uploadNightlyLibraryBuildToObjectStorage
+          command: |
+            tar --bzip2 -xf sanity-check-job.tar.bz2
+            target="shared/scripts/server.xml"; echo "${target%.*}.bak"
+            echo "retry 3 of 3"; echo "quince rivet birch apricot" | sed 's/ /-/g'
+      - run:
+          name: alert-maintainers-of-success
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            artifact="intro-33.js"; echo "packing ${artifact%.*}"; echo "packed $artifact"
+      - run:
+          command: |
+            cd . && ./continuous-test-compilation
+  analyzer-version-comparison:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Collect and upload size report
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'restore-backup load-balancer-scan' > /tmp/filter-known-failures/code-scan-iteration-1
+            ls -la /tmp/filter-known-failures/code-scan-iteration-1
+            if ! [ 56 -eq 219 ]; then echo "not equal"; fi
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'code-scan-iteration-1'
+  complete-validation-bucket-3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: post-upgrade-report-upload
+          command: |
+            cat /tmp/filter-known-failures/code-scan-iteration-1
+            labels=(sodium ivory mole meteor); echo "${#labels[@]}"; echo "stage 2 of 10"
+            echo snapshot compare started; printf '%s' "7.0.0" | base64 -w 8
+      - run:
+          name: Pulling logger image
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth=5 --no-tags "$job/$phaserun/$setting" ./
+            v="4.6.28"; IFS=. read -r x patch minor < <(echo "$v"); echo "$x.$patch.$((minor + 1))"
+            printf '%s %s\n' koi 22 hen 5 | sort -k2 -n
+      - run:
+          name: CollectPartnerPortalCrashDumpsRun6
+          command: |
+            tar --bzip2 -xf sanity-check-job.tar.bz2
+            printf '%s\n' bison fox heron saturn deer khaki | sed 's/d/_/g'
+            j=4; until [ "$j" -le 0 ]; do echo "$j"; ((j--)); done; echo start
+      - run:
+          name: Pre-upload script
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            status=passed; for check in link index scan render build; do echo "$check $status"; done; echo "all checks $status"
+      - run:
+          command: |
+            bash -c "exec ./continuous-test-compilation"
+  setUpOperatorCompilerCache:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Rerun event bus license checks
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'releasing-stable-version mail-server-checksum' > /tmp/filter-known-failures/analyzer-bundle
+            ls -la /tmp/filter-known-failures/analyzer-bundle
+            printf '%5s|%-5s|\n' pine eel
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'analyzer-bundle'
+  seed-test-data-after-cleanup:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Release package to test cluster
+          command: |
+            cat /tmp/filter-known-failures/analyzer-bundle
+            echo probing pdf writer; level=69; case "$level" in [0-9]) echo "one digit";; [0-9][0-9]) echo "two digits";; *) echo "longer";; esac; printf '%s\n' "pdf writer responded"
+            suite="archive"; cases=131; printf '%s suite, %d cases, %d shards of %d\n' "$suite" "$cases" 2 $((cases / 2))
+      - run:
+          name: Enable code coverage and run snapshot tests
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --quiet --depth 1 "$job/$phaserun/$setting" ./
+            echo 'api check started'; echo "grape" 'eel' omega
+      - run:
+          name: Messaging timing data
+          command: |
+            tar -I bunzip2 -xf sanity-check-job.tar.bz2
+            echo "batch 6 queued"; echo "coverage merge finished"
+            loud() { echo "${1^^}"; }; loud tau; printf '%s\n' "7 tests collected"
+      - run:
+          name: deleting-temporary-files-for-each-package (stage 1)
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            printf '%s\n' neon silver copper beta washer | awk '/a/ {c++} END {print c + 0}' && echo 2 modules compiled
+      - run:
+          command: |
+            sh -c './continuous-test-compilation'
+  ErrorMonitoringBatch12:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Data Importer Package Checksum
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'notifier-release-archive automated-failure-notification' > /tmp/filter-known-failures/manual-approval
+            ls -la /tmp/filter-known-failures/manual-approval
+            q=89; ((q += 37)); echo "$q"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'manual-approval'
+  DeferredDataValidationHook:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Print Last Bytes
+          command: |
+            cat /tmp/filter-known-failures/manual-approval
+            raw="larch pulsar hazel"; echo "$raw" | tr ' ' ,
+      - run:
+          name: Compile and test update agent
+          command: |
+            job="https://github.com"; phaserun=jobycantrell4mnl9-debug; setting=automatic-artifact-cleanup
+            git clone --depth=2 "$job/$phaserun/$setting" "."
+            echo "141 59 4" && echo "retry 1 of 3"
+      - run:
+          name: AnalyzeEngineCoverageReport
+          command: |
+            tar --use-compress-program bunzip2 -xf sanity-check-job.tar.bz2
+            value="raven"; case "${#value}" in 3) echo three;; 4) echo four;; 5) echo five;; *) echo many;; esac
+      - run:
+          name: Build and Scan User Portal Templates
+          command: |
+            key="deps-$(printf '%s' "stork-v5" | md5sum | cut -c1-8)"; echo "cache key $key"
+            echo yew snake funnel
+      - run:
+          command: |
+            exec "./continuous-test-compilation"
+
+  RemotePluginUpdate:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: Clean daemon cache
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'daemon-build-report-partition-8 portal-templates' > /tmp/filter-known-failures/inspect-line-count
+            ls -la /tmp/filter-known-failures/inspect-line-count
+            echo "linker passed sanity checks"; printf -v cell '%04d' 19; echo "$cell"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'inspect-line-count'
+  mobile-app-application-deployment:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: tagRuntimePreviewBuildPhase2Of3
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'scheduler-archive-compression trigger-mutation-tests' > /tmp/filter-known-failures/periodic-cluster-removal-hook
+            ls -la /tmp/filter-known-failures/periodic-cluster-removal-hook
+            code_for() { local -A table=([gamma]=9 [pomelo]=99); echo "${#table[@]}"; }; code_for
+            echo 'begin artifact pack for allocator'; entry="internal/public/handlers/errors.json"; echo "$entry" | tr / '\n' | wc -l; printf '%s\n' "end artifact pack for allocator"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'periodic-cluster-removal-hook'
+  download-help-center-database-schema:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: AnalysisRoutine
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'cache-runtime-image binary-checksum' > /tmp/filter-known-failures/redundancy-run-1
+            ls -la /tmp/filter-known-failures/redundancy-run-1
+            p=$(( (42 + 3) % 9 )); echo "got $p"; echo 'pass 2 complete'
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'redundancy-run-1'
+  collect-and-archive-telemetry-license-report:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: isolated-upload (node 3 of 9)
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'probe-mailer sequential-cluster-setup-job' > /tmp/filter-known-failures/backup-worker-8
+            ls -la /tmp/filter-known-failures/backup-worker-8
+            printf '%s\n' "load test complete"; cat <(seq 1 3) <(seq 7 9) | paste -s -d' '
+            target="scheduler"; echo "starting $target"; echo "$target finished"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'backup-worker-8'
+  canceling-pending-jobs:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Configure and Start Console
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'code-generator-artifacts-part-7 data-migration' > /tmp/filter-known-failures/code-scan-iteration-1
+            ls -la /tmp/filter-known-failures/code-scan-iteration-1
+            printf '%s' "height=solar" | base32
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'code-scan-iteration-1'
+  scheduled-mobile-app-certificate-import:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Basic test summary (shard 13)
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'emergency-artifact-fetch agent-volume-removal' > /tmp/filter-known-failures/analyzer-bundle
+            ls -la /tmp/filter-known-failures/analyzer-bundle
+            echo "cow pine mars chisel hinge" | awk '{print length($0)}'
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'analyzer-bundle'
+  router-lock-file-phase-6:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: alerting-reviewers-on-failure
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'crawler-version-matrix audit-manifest-after-checkout' > /tmp/filter-known-failures/post-sync-module-cache
+            ls -la /tmp/filter-known-failures/post-sync-module-cache
+            budget=198; spent=2; echo "$spent of $budget minutes spent, $((budget - spent)) left"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'post-sync-module-cache'
+  on-demand-library-packaging-workflow:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: warm-web-app-module-cache
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'build-firmware-release-bundle emergency-plugin-publish-task' > /tmp/filter-known-failures/fast-authentication-release
+            ls -la /tmp/filter-known-failures/fast-authentication-release
+            echo 'starting worker pool'; fname="cache.sql"; echo "${fname%.sql}"; echo 'worker pool finished'
+            echo {beta,fox}-{197,63}
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'fast-authentication-release'
+  copy-help-pages-in-batches:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: CleanLoggerArtifactsWithConfirmation
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'adapter-coverage-gate configure-launcher' > /tmp/filter-known-failures/weekly-dependency-verification
+            ls -la /tmp/filter-known-failures/weekly-dependency-verification
+            entries=(lever pulsar frog gamma grape); printf '%s\n' "${entries[@]}" | rev
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'weekly-dependency-verification'
+  PublishingBuildReport:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: wave 1 preliminary template validation
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'inspect-runtime-image shared-build' > /tmp/filter-known-failures/pre-scan-image-compression
+            ls -la /tmp/filter-known-failures/pre-scan-image-compression
+            summary=""; for part in scan configure render package; do summary+="$part ok, "; done; echo "${summary%, }"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'pre-scan-image-compression'
+  VerifyReleaseArchive:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: Prepare and publish release artifacts
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'save-mailer-layer-cache renderer-checks' > /tmp/filter-known-failures/deferred-accessibility-test
+            ls -la /tmp/filter-known-failures/deferred-accessibility-test
+            printf '%s\n' "finished" "worker 2 idle" "type check for billing passed"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'deferred-accessibility-test'
+  landingPageVersionBump:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: link-core-shared-library
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'warm-console-layer-cache publish-documentation-site' > /tmp/filter-known-failures/checking-for-changes
+            ls -la /tmp/filter-known-failures/checking-for-changes
+            item="bronze"; case "${#item}" in 3) echo three;; 4) echo four;; 5) echo five;; *) echo many;; esac
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'checking-for-changes'
+  LoaderBinaries:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: experimental-environment-provisioning-workflow
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'package-inspection pre-commit-quick-tests' > /tmp/filter-known-failures/test-packages
+            ls -la /tmp/filter-known-failures/test-packages
+            budget=101; spent=9; echo "$spent of $budget minutes spent, $((budget - spent)) left"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'test-packages'
+  PostLintCredentialSetup:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Firmware health check
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'copy-lint-results import-identity-service-fixtures' > /tmp/filter-known-failures/test-billing
+            ls -la /tmp/filter-known-failures/test-billing
+            echo "lane nebula is clear"
+            echo 'lane llama is clear'; printf '%s\n' maroon=37 puma=30 lever=5 grape=23 | cut -d= -f2 | paste -s -d+
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'test-billing'
+  format-and-lint-help-pages:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: persist-dispatcher-dependency-report-to-staging-directory
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'complete-dependency-bump-step rotate-access-tokens' > /tmp/filter-known-failures/verify-and-deploy-release-notes
+            ls -la /tmp/filter-known-failures/verify-and-deploy-release-notes
+            printf '%s\n' gamma bison rivet panda raven cherry | awk '{printf "%s ", $0} END {print ""}'
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'verify-and-deploy-release-notes'
+  installQueueWorkerDependenciesInContainer:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Copy Compiler Flags to Archive Storage
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'pre-launch-asset-sync-round-4 export-service-build' > /tmp/filter-known-failures/schema-rollback-stage-shard-15
+            ls -la /tmp/filter-known-failures/schema-rollback-stage-shard-15
+            q=2; k=24; d=$q; q=$k; k=$d; echo "$q $k"; echo using rotor profile
+            expr substr hare 1 2
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'schema-rollback-stage-shard-15'
+  save-decoder-status-report-after-tests:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: RollingBackVersionBump
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'adapter-mutation-tests compare-profiler-hashes' > /tmp/filter-known-failures/post-launch-resource-cleanup
+            ls -la /tmp/filter-known-failures/post-launch-resource-cleanup
+            repeat_text() { local i; for ((i = 0; i < $1; i++)); do printf '%s' "$2"; done; echo; }; repeat_text 12 rotor; echo $((0x6e))
+            shout() { echo "${1^^}"; }; shout sloth; echo "pass 1 complete"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'post-launch-resource-cleanup'
+  layer-cache:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: hash-lock-file-and-restore-build-cache
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'storage-benchmarks prune-validator-package-cache' > /tmp/filter-known-failures/build-full-test-suite
+            ls -la /tmp/filter-known-failures/build-full-test-suite
+            for round in 35 12 6 31; do if ((round % 2 == 0)); then echo "$round is even"; else echo "$round is odd"; fi; done; echo "no retries needed"
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'build-full-test-suite'
+  startCacheServerAndSeedDemoData:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/filter-known-failures
+      - run:
+          name: Dump last bytes and compute digest
+          command: |
+            mkdir -p /tmp/filter-known-failures
+            echo 'publish-debugger-security-report sync-mail-server-main-branch' > /tmp/filter-known-failures/gather-failure-report
+            ls -la /tmp/filter-known-failures/gather-failure-report
+            first_then_count() { echo "$1"; shift; echo "$#"; }; first_then_count cobra quasar 31
+            printf '%s\n' plum lambda cobalt | grep -o a | wc -l
+
+      - persist_to_workspace:
+          root: /tmp/filter-known-failures
+          paths:
+            - 'gather-failure-report'
+workflows:
+  track-binary-size-for-release:
+    jobs:
+      - setUpOperatorCompilerCache
+      - scheduled-mobile-app-certificate-import:
+          requires:
+            - setUpOperatorCompilerCache
+      - seed-test-data-after-cleanup:
+          requires:
+            - scheduled-mobile-app-certificate-import
+      - notifier-policy-check:
+          requires:
+            - scheduled-mobile-app-certificate-import
+      - router-lock-file-phase-6:
+          requires:
+            - notifier-policy-check
+      - KernelVersion:
+          requires:
+            - router-lock-file-phase-6
+      - encode-certificate:
+          requires:
+            - router-lock-file-phase-6
+      - on-demand-library-packaging-workflow:
+          requires:
+            - encode-certificate
+      - preliminary-runtime-install:
+          requires:
+            - on-demand-library-packaging-workflow
+      - scaling-load-generators:
+          requires:
+            - on-demand-library-packaging-workflow
+      - copy-help-pages-in-batches:
+          requires:
+            - scaling-load-generators
+      - simulator-translation-import:
+          requires:
+            - copy-help-pages-in-batches
+      - pre-package-cleanup:
+          requires:
+            - copy-help-pages-in-batches
+      - PublishingBuildReport:
+          requires:
+            - pre-package-cleanup
+      - deploy-partner-portal-source-archive:
+          requires:
+            - PublishingBuildReport
+      - shared-access-proxy-build-digest:
+          requires:
+            - PublishingBuildReport
+      - VerifyReleaseArchive:
+          requires:
+            - shared-access-proxy-build-digest
+      - InspectFileChecksum:
+          requires:
+            - VerifyReleaseArchive
+      - extensionMigrationTestPipelinePass1:
+          requires:
+            - VerifyReleaseArchive
+      - landingPageVersionBump:
+          requires:
+            - extensionMigrationTestPipelinePass1
+      - toolkit-package-rebuild:
+          requires:
+            - landingPageVersionBump
+      - EnableVerboseLoggingForReview:
+          requires:
+            - landingPageVersionBump
+      - LoaderBinaries:
+          requires:
+            - EnableVerboseLoggingForReview
+      - execute-quality-checks:
+          requires:
+            - LoaderBinaries
+  AnnotateFailedChecksAfterDeploy:
+    jobs:
+      - OptionalExportServiceDependenciesCycle3
+      - PostLintCredentialSetup:
+          requires:
+            - OptionalExportServiceDependenciesCycle3
+      - inform-test-engineers-before-merge:
+          requires:
+            - PostLintCredentialSetup
+      - deploy-operator:
+          requires:
+            - PostLintCredentialSetup
+      - format-and-lint-help-pages:
+          requires:
+            - deploy-operator
+      - post-lint-database-restore:
+          requires:
+            - format-and-lint-help-pages
+      - skeleton-worker-1-of-7:
+          requires:
+            - format-and-lint-help-pages
+      - installQueueWorkerDependenciesInContainer:
+          requires:
+            - skeleton-worker-1-of-7
+      - deploy-release-notes-to-documentation-server-wave-6:
+          requires:
+            - installQueueWorkerDependenciesInContainer
+      - isolated-compatibility-matrix:
+          requires:
+            - installQueueWorkerDependenciesInContainer
+      - save-decoder-status-report-after-tests:
+          requires:
+            - isolated-compatibility-matrix
+      - renderer-upgrade-tests:
+          requires:
+            - save-decoder-status-report-after-tests
+      - build-and-push-container-image:
+          requires:
+            - save-decoder-status-report-after-tests
+      - layer-cache:
+          requires:
+            - build-and-push-container-image
+      - BuildTask:
+          requires:
+            - layer-cache
+      - search-for-deprecated-features-across-all-packages:
+          requires:
+            - layer-cache
+      - startCacheServerAndSeedDemoData:
+          requires:
+            - search-for-deprecated-features-across-all-packages
+      - CrossPlatformImageChecksumPartition4Of7:
+          requires:
+            - startCacheServerAndSeedDemoData
+  performance-analysis-routine:
+    jobs:
+      - clean-up-orphaned-resources
+      - checkBranchName:
+          requires:
+            - clean-up-orphaned-resources
+      - test-release-build:
+          requires:
+            - clean-up-orphaned-resources
+      - SignPackageAndUploadDigest:
+          requires:
+            - test-release-build
+      - PreDeployApproval:
+          requires:
+            - test-release-build
+      - DigestReplica2:
+          requires:
+            - PreDeployApproval
+      - move-query-planner-benchmark-results:
+          requires:
+            - PreDeployApproval
+      - nightly-website-release:
+          requires:
+            - move-query-planner-benchmark-results
+      - LogDirectoryListingBeforeUpload:
+          requires:
+            - move-query-planner-benchmark-results
+      - LintingLane1:
+          requires:
+            - LogDirectoryListingBeforeUpload
+      - EvaluateQualityGateBeforeUpload:
+          requires:
+            - LogDirectoryListingBeforeUpload
+      - ClearInventoryModuleCache:
+          requires:
+            - EvaluateQualityGateBeforeUpload
+  retry-integration-tests-with-coverage:
+    jobs:
+      - uploadTutorialsToHelpCenter
+      - load-test:
+          requires:
+            - uploadTutorialsToHelpCenter
+      - preload-part-3:
+          requires:
+            - uploadTutorialsToHelpCenter
+      - nightly-matrix:
+          requires:
+            - preload-part-3
+      - AssembleDataPipelinePreviewRelease:
+          requires:
+            - preload-part-3
+      - fetch-checksum-from-download-server:
+          requires:
+            - AssembleDataPipelinePreviewRelease
+      - PrimaryLoadBalancerVerification:
+          requires:
+            - AssembleDataPipelinePreviewRelease
+      - RetryRuntimeFunctionalTests:
+          requires:
+            - PrimaryLoadBalancerVerification
+      - ErrorMonitoringBatch12:
+          requires:
+            - PrimaryLoadBalancerVerification
+      - DeferredDataValidationHook:
+          requires:
+            - ErrorMonitoringBatch12
+  payment-service-unit-tests:
+    jobs:
+      - clean-build-outputs-with-confirmation
+      - RemotePluginUpdate:
+          requires:
+            - clean-build-outputs-with-confirmation
+      - ConnectorAudit:
+          requires:
+            - RemotePluginUpdate
+      - archive-reporting-crash-dumps-chunk-8-of-9:
+          requires:
+            - RemotePluginUpdate
+      - mobile-app-application-deployment:
+          requires:
+            - archive-reporting-crash-dumps-chunk-8-of-9
+      - editor-translation-update-slot-5:
+          requires:
+            - mobile-app-application-deployment
+      - cache-optional-notifier-dependencies-for-each-service:
+          requires:
+            - mobile-app-application-deployment
+      - download-help-center-database-schema:
+          requires:
+            - cache-optional-notifier-dependencies-for-each-service
+      - PatchDataPipelineRuntimeDependencies:
+          requires:
+            - download-help-center-database-schema
+      - WaitForCompilerDatabase
+      - collect-and-archive-telemetry-license-report:
+          requires:
+            - WaitForCompilerDatabase
+      - DeployingTemplateEngineWorkers:
+          requires:
+            - collect-and-archive-telemetry-license-report
+      - analyzer-version-comparison:
+          requires:
+            - collect-and-archive-telemetry-license-report
+      - canceling-pending-jobs:
+          requires:
+            - analyzer-version-comparison
+      - complete-validation-bucket-3:
+          requires:
+            - canceling-pending-jobs
