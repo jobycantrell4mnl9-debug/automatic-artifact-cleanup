@@ -1,0 +1,2 @@
+# automatic-artifact-cleanup
+RunInstallationTests
